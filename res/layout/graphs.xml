@@ -14,6 +14,11 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="" />
+		<TextView
+		    android:id="@+id/mHealthLabel"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="" />
 
         <LinearLayout
             android:id="@+id/ecg_graph"
