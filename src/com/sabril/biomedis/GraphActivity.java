@@ -28,6 +28,7 @@ public class GraphActivity extends Activity{
 	private Biomedis app;
 	//private Timer mTimer;
 	private TextView timeLabel, healthLabel;
+	private String timeString;
 //	private long mStartTime;
 	private Socket socket;
 	private LinearLayout ecg_section;
@@ -43,7 +44,7 @@ public class GraphActivity extends Activity{
 	
 	// bt-uart constants
     private static final int MAX_SAMPLES = 640;
-    private static final int  MAX_LEVEL	= 240;
+    private static final int  MAX_LEVEL	= 500;
     private static final int  DATA_START = (MAX_LEVEL + 1);
     private static final int  DATA_END = (MAX_LEVEL + 2);
     
@@ -102,8 +103,11 @@ public class GraphActivity extends Activity{
         switch (item.getItemId()) {
         case R.id.start:
         	mCommClient.connect(app);
+        	mHandler.removeCallbacks(Timer_Tick);
+        	mHandler.postDelayed(Timer_Tick, 500);
             return true;
         case R.id.stop:
+        	mHandler.removeCallbacks(Timer_Tick);
         	mCommClient.stop();
             return true;
         default:
@@ -121,8 +125,22 @@ public class GraphActivity extends Activity{
 			case MESSAGE_READ:
 				String read = (String) msg.obj;
 				int data_length = msg.arg1;
-				Log.v("ClientActivity", read);
+				String[] tmp = read.split(" ");
+				if (tmp.length > 2){
+					timeString = tmp[2];
+					if (dataIndex1 < MAX_SAMPLES/2){
+						ch1_data[dataIndex1] = 2 * (Integer.parseInt(tmp[0])-850);
+						Log.v("ClientActivity", "" + ch1_data[dataIndex1]);
+						dataIndex1++;
+					}else{
+						dataIndex1 = 0;
+					}
+				}
+				mWaveform.set_data(ch1_data, ch2_data);
+				//timeLabel.setText(tmp[2]);
+				//Log.v("ClientActivity", read);
 				
+				//mWaveform.set_data(ch1_data, ch2_data);
 //				for(int x=0; x< data_length; x++){
 //					
 //				}
@@ -143,89 +161,15 @@ public class GraphActivity extends Activity{
     	}
     };
     
-//	private Runnable Timer_Tick = new Runnable() {
-//		public void run() {
-//			final long start = mStartTime;
-//		    long millis = System.currentTimeMillis() - start;
-//		    int seconds = (int) (millis / 1000);
-//		    int minutes = seconds / 60;
-//		    seconds     = seconds % 60;
-//		    if (seconds < 10) {
-//		    	timeLabel.setText("" + minutes + ":0" + seconds);
-//		    } else {
-//		    	timeLabel.setText("" + minutes + ":" + seconds);            
-//		    }
-//		    mHandler.postDelayed(this, 1000);
-//		    
-//		}
-//	};
+private Runnable Timer_Tick = new Runnable() {
+	public void run() {
+		timeLabel.setText(timeString);
+		mHandler.postDelayed(this, 3000);
+	}
+};
 //	
 //	private void updateLabel(String time_string){
 //		healthLabel.setText(time_string);
 //	}
 //	
-//	private Runnable Listen_Server = new Runnable() {
-//		
-//		@Override
-//		public void run() {
-//			// TODO Auto-generated method stub
-//            try {
-//                InetAddress serverAddr = InetAddress.getByName(app.getIpAddress());
-//                Log.d("ClientActivity", "C: Connecting...");
-//                socket = new Socket(serverAddr, Integer.parseInt(app.getPortNumber()));
-//                connected = true;
-//                while (connected) {
-//                    try {
-//                        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-//                        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-//                        out.flush();
-//                        String output = dataInputStream.readLine();
-//                        String[] temp = output.split(" ");
-//                        Log.d("ClientActivity", "" +temp[2]);
-//                        //updateLabel(temp[2]);
-//                    } catch (Exception e) {
-//                        Log.e("ClientActivity", "S: Error", e);
-//                    }
-//                }
-//                socket.close();
-//                Log.d("ClientActivity", "C: Closed.");
-//            } catch (Exception e) {
-//                Log.e("ClientActivity", "C: Error", e);
-//                connected = false;
-//            }
-//		}
-//	};
-//	
-//	public class ClientThread implements Runnable{
-//
-//		@Override
-//		public void run() {
-//			// TODO Auto-generated method stub
-//            try {
-//                InetAddress serverAddr = InetAddress.getByName(app.getIpAddress());
-//                Log.d("ClientActivity", "C: Connecting...");
-//                socket = new Socket(serverAddr, Integer.parseInt(app.getPortNumber()));
-//                connected = true;
-//                while (connected) {
-//                    try {
-//                        DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-//                        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-//                        out.flush();
-//                        String output = dataInputStream.readLine();
-//                        String[] temp = output.split(" ");
-//                        Log.d("ClientActivity", "" +temp[2]);
-//                        //updateLabel(temp[2]);
-//                    } catch (Exception e) {
-//                        Log.e("ClientActivity", "S: Error", e);
-//                    }
-//                }
-//                socket.close();
-//                Log.d("ClientActivity", "C: Closed.");
-//            } catch (Exception e) {
-//                Log.e("ClientActivity", "C: Error", e);
-//                connected = false;
-//            }
-//		}
-//		
-//	}
 }

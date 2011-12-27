@@ -12,7 +12,7 @@ import android.view.SurfaceView;
 public class WaveformView extends SurfaceView implements SurfaceHolder.Callback{
 
 	// plot area size
-	private final static int WIDTH = 420;
+	private final static int WIDTH = 320;
 	private final static int HEIGHT = 240;
 	
 	private static int[] ch1_data = new int[WIDTH];
