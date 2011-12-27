@@ -26,7 +26,10 @@
             android:layout_height="250dip"
             android:orientation="vertical" >
 
-
+            <com.sabril.biomedis.WaveformView
+                android:id="@+id/waveformView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -35,6 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="250dip"
             android:orientation="vertical" >
+
+            <com.sabril.biomedis.WaveformView
+                android:id="@+id/waveformView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

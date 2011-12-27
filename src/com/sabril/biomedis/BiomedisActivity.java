@@ -34,6 +34,7 @@ public class BiomedisActivity extends TabActivity {
         tabHost.addTab(spec);
         
         tabHost.setCurrentTab(0);
+       
         
     }
 }
