@@ -11,9 +11,11 @@
 
 		<TextView
 		    android:id="@+id/mTimeLabel"
-		    android:layout_width="wrap_content"
+		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
-		    android:text="" />
+		    android:text=""
+		    android:textSize="24px" />
+
 		<TextView
 		    android:id="@+id/mHealthLabel"
 		    android:layout_width="wrap_content"
@@ -23,22 +25,31 @@
         <LinearLayout
             android:id="@+id/ecg_graph"
             android:layout_width="match_parent"
-            android:layout_height="250dip"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <com.sabril.biomedis.WaveformView
-                android:id="@+id/waveformView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+			        <com.androidplot.xy.XYPlot
+    android:id="@+id/ecg_plotter"
+    android:layout_width="fill_parent"
+    android:layout_height="250px"
+    android:layout_marginTop="10px"
+    android:layout_marginLeft="10px"
+    android:layout_marginRight="10px"
+    title="ECG"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ppg_graph"
             android:layout_width="match_parent"
-            android:layout_height="250dip"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
-
+			<com.androidplot.xy.XYPlot
+    android:id="@+id/ppg_plotter"
+    android:layout_width="fill_parent"
+    android:layout_height="250px"
+    android:layout_marginTop="10px"
+    android:layout_marginLeft="10px"
+    android:layout_marginRight="10px"
+    title="PPG"/>
         </LinearLayout>
 
     </LinearLayout>

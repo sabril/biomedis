@@ -34,10 +34,7 @@ public class WaveformView extends SurfaceView implements SurfaceHolder.Callback{
 		getHolder().addCallback(this);
 		
 		// initial values
-		for(int x=0; x<WIDTH; x++){
-			ch1_data[x] = ch1_pos;
-			ch2_data[x] = ch2_pos;
-		}
+		reset();
 		
 		plot_thread = new WaveformPlotThread(getHolder(), this);
 		
@@ -126,6 +123,13 @@ public class WaveformView extends SurfaceView implements SurfaceHolder.Callback{
 		for(int x=0; x<(WIDTH-1); x++){			
 			//canvas.drawLine(x+1, ch2_data[x], x+2, ch2_data[x+1], ch2_color);
 			canvas.drawLine(x+1, ch1_data[x], x+2, ch1_data[x+1], ch1_color);
+		}
+	}
+	
+	public void reset(){
+		for(int x=0; x<WIDTH; x++){
+			ch1_data[x] = ch1_pos;
+			ch2_data[x] = ch2_pos;
 		}
 	}
 
