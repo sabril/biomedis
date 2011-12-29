@@ -113,7 +113,7 @@ public class CommClient {
         // Send a failure message back to the Activity
         Message msg = mHandler.obtainMessage(GraphActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(GraphActivity.TOAST, "Device connection was lost");
+        bundle.putString(GraphActivity.TOAST, "Stop koneksi");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
     }

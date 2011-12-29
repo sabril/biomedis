@@ -3,7 +3,7 @@ package com.sabril.biomedis;
 import android.app.Application;
 
 public class Biomedis extends Application{
-	private String ip_address="192.168.3.254", port_number="5000";
+	private String ip_address="192.168.1.254", port_number="5000";
 	
 	public String getIpAddress(){
 		return this.ip_address;

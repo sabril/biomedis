@@ -10,6 +10,7 @@ import com.androidplot.xy.XYPlot;
 
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,7 @@ public class GraphActivity extends Activity{
     public static final int MESSAGE_TOAST = 5;
     public static final String TOAST = "toast";
 	
-    private static final int MAX_SAMPLES = 640;
+    private static final int MAX_SAMPLES = 200;
     
     // receive data 
 	private Number[] ecg_series = new Number[MAX_SAMPLES/2];
@@ -51,6 +53,7 @@ public class GraphActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graphs);
         app = (Biomedis)getApplicationContext();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         timeLabel = (TextView)findViewById(R.id.mTimeLabel);
         ecg_history = new LinkedList<Number>();
         ppg_history = new LinkedList<Number>();
@@ -59,7 +62,6 @@ public class GraphActivity extends Activity{
     @Override
     public void onStart(){
     	super.onStart();
-    	Toast.makeText(this, "Start..", Toast.LENGTH_LONG).show();
     	
     	mCommClient = new CommClient(this, mHandler);
     	mEcgPlot = (XYPlot)findViewById(R.id.ecg_plotter);
@@ -182,4 +184,17 @@ public class GraphActivity extends Activity{
 			mHandler.postDelayed(this, 3000);
 		}
 	};
+	
+	public boolean startGraph(View v){
+    	mCommClient.connect(app);
+    	mHandler.removeCallbacks(Timer_Tick);
+    	mHandler.postDelayed(Timer_Tick, 500);
+    	return true;
+	}
+	
+	public boolean stopGraph(View v){
+		mHandler.removeCallbacks(Timer_Tick);
+    	mCommClient.stop();
+		return true;
+	}
 }

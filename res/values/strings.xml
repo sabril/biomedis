@@ -3,7 +3,7 @@
 
     <string name="hello">Hello World, BiomedisActivity!</string>
     <string name="app_name">Biomedical Device</string>
-    <string name="about">Biomedical Device v.0.1 by Syaiful Sabril</string>
+    <string name="about">Biomedical Device v.0.1 by syaiful.sabril@gmail.com</string>
     <string name="settings">settings</string>
     <string name="ip_address">Alamat IP:</string>
     <string name="port">Port:</string>

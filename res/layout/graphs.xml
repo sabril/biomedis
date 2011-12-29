@@ -9,24 +9,56 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-		<TextView
-		    android:id="@+id/mTimeLabel"
+		<LinearLayout
+		    android:id="@+id/linearLayout1"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
-		    android:text=""
-		    android:textSize="24px" />
+		    android:gravity="center"
+		    android:orientation="horizontal" >
 
-		<TextView
-		    android:id="@+id/mHealthLabel"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="" />
+			<Button
+			    android:id="@+id/start_btn"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:onClick="startGraph"
+			    android:text="Start" />
+
+			<Button
+			    android:id="@+id/stop_btn"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:onClick="stopGraph"
+			    android:text="Stop" />
+
+			<LinearLayout
+			    android:id="@+id/linearLayout2"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:gravity="right" >
+
+				<TextView
+				    android:id="@+id/textView1"
+				    android:layout_width="wrap_content"
+				    android:layout_height="match_parent"
+				    android:text="SPO2: " android:textSize="24px" />
+
+				<TextView
+				    android:id="@+id/mTimeLabel"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="0" android:textSize="24px" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/ecg_graph"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
 			        <com.androidplot.xy.XYPlot
     android:id="@+id/ecg_plotter"
     android:layout_width="fill_parent"
